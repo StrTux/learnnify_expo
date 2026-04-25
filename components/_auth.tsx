@@ -14,7 +14,6 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { LoginForm, SignupForm } from "./UI/form";
 import type { Screen } from "./types";
-import { Accordion } from "./UI/index";
 
 interface AuthScreenProps {
   onNavigate: (screen: Screen) => void;
@@ -50,22 +49,22 @@ const AuthScreen = ({ onNavigate, params = {} }: AuthScreenProps) => {
     outputRange: [0, tabWidth],
   });
 
-const gradientColors =
-  colorScheme === "dark"
-    ? ["#020617", "#1e293b"] as const
-    : ["#ffffff", "#dbeafe"] as const;
+  const gradientColors =
+    colorScheme === "dark"
+      ? ["#020617", "#1e293b"] as const
+      : ["#ffffff", "#dbeafe"] as const;
 
   return (
     <KeyboardAvoidingView
       className="flex-1"
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-<LinearGradient
-  colors={["transparent", "rgba(43, 44, 45, 0.287)"]}
-  start={{ x: 0, y: 0 }}
-  end={{ x: 0, y: 1 }}
-  className="absolute bottom-0 left-0 right-0 h-80"
-/>
+      <LinearGradient
+        colors={["transparent", "rgba(43, 44, 45, 0.287)"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        className="absolute bottom-0 left-0 right-0 h-80"
+      />
 
       <StatusBar
         barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
@@ -104,18 +103,17 @@ const gradientColors =
               className="absolute top-1 bottom-1 left-1 bg-white dark:bg-gray-900 rounded-lg"
             />
 
-            {["login", "signup"].map((tab) => (
+            {(["login", "signup"] as const).map((tab) => (
               <TouchableOpacity
                 key={tab}
                 onPress={() => switchTab(tab)}
                 className="flex-1 items-center justify-center z-10"
               >
                 <Text
-                  className={`font-semibold ${
-                    activeTab === tab
-                      ? "text-gray-900 dark:text-white"
-                      : "text-gray-500"
-                  }`}
+                  className={`font-semibold ${activeTab === tab
+                    ? "text-gray-900 dark:text-white"
+                    : "text-gray-500"
+                    }`}
                 >
                   {tab === "login" ? "Sign In" : "Sign Up"}
                 </Text>
@@ -141,7 +139,9 @@ const gradientColors =
             By continuing, you agree to Terms & Privacy
           </Text>
         </View>
-     </View>
+
+
+      </View>
     </KeyboardAvoidingView>
   );
 };

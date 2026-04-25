@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import './global.css'
 import { useState, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { BackHandler } from 'react-native';
@@ -8,7 +9,7 @@ import GetStartedScreen from 'components/_getScreen';
 import AuthScreen from 'components/_auth';
 import HomeScreen from 'components/_home';
 import type { Screen } from 'components/types';
-import FontsIconsExample from 'components/FontsIconsExample';
+
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -33,10 +34,6 @@ export default function App() {
     }
   }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
-
   const navigate = (to: Screen) => {
     setScreen(to);
     setScreenHistory([...screenHistory, to]);
@@ -56,6 +53,10 @@ export default function App() {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', goBack);
     return () => backHandler.remove();
   }, [screenHistory]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <SafeAreaProvider>
